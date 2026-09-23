@@ -1,0 +1,221 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/fernando/Escritorio/Ejemplo/Ejemplo.API/Ejemplo.API.csproj": {}
+  },
+  "projects": {
+    "/home/fernando/Escritorio/Ejemplo/Ejemplo.API/Ejemplo.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/fernando/Escritorio/Ejemplo/Ejemplo.API/Ejemplo.API.csproj",
+        "projectName": "Ejemplo.API",
+        "projectPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.API/Ejemplo.API.csproj",
+        "packagesPath": "/home/fernando/.nuget/packages/",
+        "outputPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/fernando/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/Ejemplo.DAL.csproj": {
+                "projectPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/Ejemplo.DAL.csproj"
+              },
+              "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/Ejemplo.Domain.csproj": {
+                "projectPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/Ejemplo.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Magick.NET-Q8-AnyCPU": {
+              "target": "Package",
+              "version": "[14.17.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.131/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/Ejemplo.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/Ejemplo.DAL.csproj",
+        "projectName": "Ejemplo.DAL",
+        "projectPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/Ejemplo.DAL.csproj",
+        "packagesPath": "/home/fernando/.nuget/packages/",
+        "outputPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/fernando/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/Ejemplo.Domain.csproj": {
+                "projectPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/Ejemplo.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.131/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/Ejemplo.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/Ejemplo.Domain.csproj",
+        "projectName": "Ejemplo.Domain",
+        "projectPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/Ejemplo.Domain.csproj",
+        "packagesPath": "/home/fernando/.nuget/packages/",
+        "outputPath": "/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/fernando/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.131/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

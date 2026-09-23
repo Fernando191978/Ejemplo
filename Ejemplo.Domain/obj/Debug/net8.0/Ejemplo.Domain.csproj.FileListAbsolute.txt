@@ -1,0 +1,11 @@
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/bin/Debug/net8.0/Ejemplo.Domain.deps.json
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/bin/Debug/net8.0/Ejemplo.Domain.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/bin/Debug/net8.0/Ejemplo.Domain.pdb
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.AssemblyInfoInputs.cache
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.AssemblyInfo.cs
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.csproj.CoreCompileInputs.cache
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/refint/Ejemplo.Domain.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.pdb
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/ref/Ejemplo.Domain.dll

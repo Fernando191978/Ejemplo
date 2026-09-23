@@ -1,0 +1,17 @@
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/bin/Debug/net8.0/Ejemplo.DAL.deps.json
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/bin/Debug/net8.0/Ejemplo.DAL.runtimeconfig.json
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/bin/Debug/net8.0/Ejemplo.DAL.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/bin/Debug/net8.0/Ejemplo.DAL.pdb
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/bin/Debug/net8.0/Ejemplo.Domain.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/bin/Debug/net8.0/Ejemplo.Domain.pdb
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.csproj.AssemblyReference.cache
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.GeneratedMSBuildEditorConfig.editorconfig
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.AssemblyInfoInputs.cache
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.AssemblyInfo.cs
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.csproj.CoreCompileInputs.cache
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.csproj.CopyComplete
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/refint/Ejemplo.DAL.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.pdb
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.genruntimeconfig.cache
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/ref/Ejemplo.DAL.dll
