@@ -1,3 +1,5 @@
+namespace Ejemplo.API.DTOs.Auth;
+
 public class LoginResponse
 {
     
@@ -8,5 +10,5 @@ public class LoginResponse
     public string? UrlAvatar { get; set; } = string.Empty;
 
     public string Token { get; set; } = string.Empty;
-    
+    public string? RefreshToken { get; set; }
 }

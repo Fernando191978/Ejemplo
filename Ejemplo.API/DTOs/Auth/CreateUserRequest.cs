@@ -1,3 +1,5 @@
+
+namespace Ejemplo.API.DTOs.Auth;
 public class CreateUserRequest
 {
     public string Username { get; set; } = "";

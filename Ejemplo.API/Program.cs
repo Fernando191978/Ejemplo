@@ -1,5 +1,6 @@
 using System.Text;
 using Ejemplo.API.Middleware;
+using Ejemplo.API.Utils;
 using Ejemplo.DAL.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -93,6 +94,7 @@ builder.Services.AddScoped<Ejemplo.DAL.interfaces.IUnitOfWork,
     Ejemplo.DAL.EntityFramework.EFUnitOfWork>();
 
 builder.Services.AddScoped<JwtTokenGenerator>();
+builder.Services.AddScoped<EmailSender>();
 
 //
 

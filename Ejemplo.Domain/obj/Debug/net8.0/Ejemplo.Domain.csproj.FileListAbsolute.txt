@@ -9,3 +9,4 @@
 /home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/refint/Ejemplo.Domain.dll
 /home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.pdb
 /home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/ref/Ejemplo.Domain.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.Domain/obj/Debug/net8.0/Ejemplo.Domain.sourcelink.json

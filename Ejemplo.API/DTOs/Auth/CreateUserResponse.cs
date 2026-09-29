@@ -1,8 +1,10 @@
+namespace Ejemplo.API.DTOs.Auth;
+
 public class CreateUserResponse
 {
     
-    public int id { get; set; }
-    public string userName { get; set; } = "";
+    public long Id { get; set; }
+    public string Username { get; set; } = "";
 
     public string? avatarUrl { get; set; } = null;
 

@@ -1,6 +1,5 @@
 using Ejemplo.Domain.FileSystem;
 using ImageMagick;
-using Microsoft.AspNetCore.Hosting;
 
 public class FileStorageService
 {

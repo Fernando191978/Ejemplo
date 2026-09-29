@@ -15,3 +15,4 @@
 /home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.pdb
 /home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.genruntimeconfig.cache
 /home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/ref/Ejemplo.DAL.dll
+/home/fernando/Escritorio/Ejemplo/Ejemplo.DAL/obj/Debug/net8.0/Ejemplo.DAL.sourcelink.json
