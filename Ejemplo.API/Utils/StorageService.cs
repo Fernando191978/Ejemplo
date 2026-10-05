@@ -54,4 +54,18 @@ public class FileStorageService
 
         return Path.Combine(_env.ContentRootPath, storagePath);
     }
+    //Eliminar imagen
+    public Task DeleteFileAsync(string storagePath)
+    {
+        if (string.IsNullOrWhiteSpace(storagePath))
+            return Task.CompletedTask;
+
+        string physicalPath = GetPhysicalPath(storagePath);
+
+        var fileInfo = new FileInfo(physicalPath);
+        if (fileInfo.Exists)
+            fileInfo.Delete();
+
+        return Task.CompletedTask;
+    }
 }

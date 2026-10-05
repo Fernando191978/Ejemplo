@@ -33,7 +33,7 @@ builder.Services.AddDbContext<EjemploDbContext>(options =>
         .UseLazyLoadingProxies()
         .UseMySql(
             connectionString,
-            ServerVersion.AutoDetect(connectionString));
+            ServerVersion.AutoDetect(connectionString));  
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -63,6 +63,12 @@ builder.Services.AddSwaggerGen(options =>
             },
             Array.Empty<string>()
         }
+    });
+    // Configurar la representación de IFormFile como un archivo binario en Swagger
+    options.MapType<IFormFile>(() => new OpenApiSchema
+    {
+    Type = "string",
+    Format = "binary"
     });
 });
 

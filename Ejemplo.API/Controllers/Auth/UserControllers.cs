@@ -14,6 +14,8 @@ using Ejemplo.API.Utils;
 //  [Authorize] y ClaimTypes son el estándar porque son declarativos, seguros y legibles. Por eso los uso."
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Ejemplo.API.Controllers.Auth.UserDtos;
+
 
 namespace Ejemplo.API.Controllers.Auth;
 
@@ -48,8 +50,8 @@ public class UserControllers : ControllerBase
         this.email = email;
         
     }
-    // POST /api/user  →  Crear usuario
-    [HttpPost]
+    // POST /api/user  →  Crear usuario (1)
+    [HttpPost("create")]
     public async Task<IActionResult> Create([FromForm]CreateUserRequest request)
     {
         await validateUser(request);
@@ -65,7 +67,7 @@ public class UserControllers : ControllerBase
 
         CreateUserResponse response = new CreateUserResponse
         {
-            Id = (int)userName.Id,
+           
             Username = userName.UserName,
             avatarUrl = userName.GetAvatarUrl(),
         };
@@ -91,12 +93,64 @@ public class UserControllers : ControllerBase
     {
         User userName = new User
         {
+            Name = request.Name,
+            LastName = request.LastName,
+            Email = request.Email,
             UserName = request.Username,
             Image = image
         };
 
         userName.SetPassword(request.Password);
         return userName;
+    }
+
+    //Acyualizar mi avatar (2)
+    [HttpPut("me/update-avatar")]
+    [Authorize]
+    public async Task<IActionResult> UpdateAvatar([FromForm] UpdateAvatarRequest request)
+    {
+        if (request.file == null)
+            throw new ValidationException("El archivo de imagen es obligatorio.");
+
+        User user = await getAuthenticatedUser();
+
+        Image? oldImage = user.Image;
+        user.Image = await triggerImage(new CreateUserRequest { file = request.file });
+
+        await this.datebase.UserRepository.Update(user);
+        await this.datebase.SaveChangesAsync();
+
+        await deleteOldImageIfExists(oldImage);
+
+        return Ok(new ResponseDTO<object>
+        {
+            Success = true,
+            Message = "Avatar actualizado.",
+            Code = (int)System.Net.HttpStatusCode.OK,
+            Payload = null
+        });
+    }
+    private async Task<User> getAuthenticatedUser()
+    {
+        long userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        User? user = await this.datebase.UserRepository.GetByIdAsync(userId);
+
+        if (user == null)
+            throw new BusinessNotFoundException("Usuario no encontrado.");
+
+        return user;
+    }
+
+    private async Task deleteOldImageIfExists(Image? oldImage)
+    {
+        if (oldImage == null) return;
+
+        await this.datebase.ImageRepository.Delete(oldImage);
+        await this.datebase.SaveChangesAsync();
+
+        FileStorageService storage = new FileStorageService(env);
+        await storage.DeleteFileAsync(oldImage.StoragePath);
     }
 
     private async Task<Image?> triggerImage(CreateUserRequest request)
@@ -117,6 +171,18 @@ public class UserControllers : ControllerBase
 
     private async Task validateUser(CreateUserRequest request)
     {
+        if (string.IsNullOrEmpty(request.Name))
+        {    
+            throw new ValidationException("El nombre no puede estar vacío.");
+        }
+        if (string.IsNullOrEmpty(request.LastName))
+        {   
+             throw new ValidationException("El apellido no puede estar vacío.");
+        }
+        if (string.IsNullOrEmpty(request.Email))
+        {
+                throw new ValidationException("El email no puede estar vacío.");
+        }
         if (string.IsNullOrEmpty(request.Username))
         {
             throw new ValidationException("El nombre de usuario no puede estar vacío.");
@@ -135,7 +201,7 @@ public class UserControllers : ControllerBase
         }
     }    
     //Agregacion Validacion usando regex para:
-        // 8 caracteres, 1 mayuscula, 1 minuscula, 1 numero.XZ
+    // 8 caracteres, 1 mayuscula, 1 minuscula, 1 numero.XZ
         
     
     private static void ValidatePassword(string password)
@@ -146,7 +212,7 @@ public class UserControllers : ControllerBase
             throw new ValidationException(
                 "La contraseña debe tener mínimo 8 caracteres, 1 mayúscula, 1 minúscula y 1 número.");
     }
-     // POST /api/user/login
+     // POST /api/user/login  (4)
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -205,7 +271,7 @@ public class UserControllers : ControllerBase
 
         return user;
     }
-    // POST /api/user/refresh
+    // POST /api/user/refresh-token (5)
 
     [HttpPost("refresh-token")]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
@@ -241,7 +307,7 @@ public class UserControllers : ControllerBase
             }
         });
     }
-    // POST /api/user/logout
+    // POST /api/user/logout  (6)
     [HttpPost("logout")]
     [Authorize]
     public async Task<IActionResult> Logout()
@@ -267,7 +333,7 @@ public class UserControllers : ControllerBase
         });
     }
     
-    // POST /api/user/forgot-password
+    // POST /api/user/forgot-password (7)
 
     [HttpPost("forgot-password")]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
@@ -302,7 +368,7 @@ public class UserControllers : ControllerBase
     }
 
     
-// PUT /api/user/change-password
+// PUT /api/user/change-password  (8)
 
     [HttpPut("change-password")]
     [Authorize]
@@ -334,7 +400,7 @@ public class UserControllers : ControllerBase
         });
     }
     
-// POST /api/user/reset-password
+// POST /api/user/reset-password  (9)
 
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
@@ -364,7 +430,7 @@ public class UserControllers : ControllerBase
         });
     }
     
-// GET /api/user/check-username/{username}
+// GET /api/user/check-username/{username} (10)
 
     [HttpGet("check-username/{username}")]
     public async Task<IActionResult> CheckUsername(string username)
@@ -385,6 +451,176 @@ public class UserControllers : ControllerBase
             }
         });
     }
+
+   
+    // GET /api/user/get-me (11)
+
+    [HttpGet("get-me")]
+    [Authorize]
+    public async Task<IActionResult> GetMe()
+    {
+        long userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        User? user = await this.datebase.UserRepository.GetByIdAsync(userId);
+
+        if (user == null)
+            throw new BusinessNotFoundException("Usuario no encontrado.");
+
+        return Ok(new ResponseDTO<UserResponse>
+        {
+            Success = true,
+            Message = "OK",
+            Code = (int)System.Net.HttpStatusCode.OK,
+            Payload = mapToResponse(user)
+        });
+    }
+
+
+    // ============================================================
+// PUT /api/user/update-me  (12)
+// ============================================================
+    [HttpPut("update-me")]
+    [Authorize]
+    public async Task<IActionResult> UpdateMe([FromBody] UpdateUserRequest request)
+    {
+        long userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        User? user = await this.datebase.UserRepository.GetByIdAsync(userId);
+
+        if (user == null)
+            throw new BusinessNotFoundException("Usuario no encontrado.");
+
+        // Si quiere cambiar el username, verificar que no exista otro con ese nombre
+        if (!string.IsNullOrWhiteSpace(request.Username) && request.Username != user.UserName)
+        {
+            User? existing = await this.datebase.UserRepository.GetByUserNameAsync(request.Username);
+            if (existing != null)
+                throw new BusinessConflictException("El nombre de usuario ya está en uso.");
+            user.UserName = request.Username;
+        }
+
+        // Si quiere cambiar el email
+        if (!string.IsNullOrWhiteSpace(request.Email))
+            user.Email = request.Email;
+
+        await this.datebase.UserRepository.Update(user);
+        await this.datebase.SaveChangesAsync();
+
+        return Ok(new ResponseDTO<UserResponse>
+        {
+            Success = true,
+            Message = "Perfil actualizado.",
+            Code = (int)System.Net.HttpStatusCode.OK,
+            Payload = mapToResponse(user)
+        });
+    }
+
+    private static UserResponse mapToResponse(User user)
+    {
+        return new UserResponse
+        {
+            Id = user.Id,
+            Username = user.UserName,
+            Email = user.Email,
+            AvatarUrl = user.GetAvatarUrl(),
+            CreatedAt = user.CreatedAt
+        };
+    }
+    
+    // DELETE /api/user/me  (13)
+
+    [HttpDelete("delete-me")]
+    [Authorize]
+    public async Task<IActionResult> DeleteMe()
+    {
+        long userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        User? user = await this.datebase.UserRepository.GetByIdAsync(userId);
+
+        if (user == null)
+            throw new BusinessNotFoundException("Usuario no encontrado.");
+
+        user.IsDeleted = true;
+
+        await this.datebase.UserRepository.Update(user);
+        await this.datebase.SaveChangesAsync();
+
+        return Ok(new ResponseDTO<object>
+        {
+            Success = true,
+            Message = "Cuenta eliminada.",
+            Code = (int)System.Net.HttpStatusCode.OK,
+            Payload = null
+        });
+    }
+
+    
+    // GET /api/user  → Listar usuarios (solo admin)  (14)
+    
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
+    {
+        IEnumerable<User> users = await this.datebase.UserRepository.GetAllAsync(page, size);
+
+        return Ok(new ResponseDTO<IEnumerable<UserResponse>>
+        {
+            Success = true,
+            Message = "OK",
+            Code = (int)System.Net.HttpStatusCode.OK,
+            Payload = users.Select(mapToResponse)
+        });
+    }
+
+    // ============================================================
+    // GET /api/user/{id}  → Usuario por ID  (15)
+    // ============================================================
+    [HttpGet("{id:long}")]
+    [Authorize]
+    public async Task<IActionResult> GetById(long id)
+    {
+        User? user = await this.datebase.UserRepository.GetByIdAsync(id);
+
+        if (user == null)
+            throw new BusinessNotFoundException("Usuario no encontrado.");
+
+        return Ok(new ResponseDTO<UserResponse>
+        {
+            Success = true,
+            Message = "OK",
+            Code = (int)System.Net.HttpStatusCode.OK,
+            Payload = mapToResponse(user)
+        });
+    }
+
+    // ============================================================
+    // DELETE /api/user/{id}  → Eliminar usuario (solo admin) (16)
+    // ============================================================
+    [HttpDelete("{id:long}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(long id)
+    {
+        User? user = await this.datebase.UserRepository.GetByIdAsync(id);
+
+        if (user == null)
+            throw new BusinessNotFoundException("Usuario no encontrado.");
+
+        user.IsDeleted = true;
+
+        await this.datebase.UserRepository.Update(user);
+        await this.datebase.SaveChangesAsync();
+
+        return Ok(new ResponseDTO<object>
+        {
+            Success = true,
+            Message = "Usuario eliminado.",
+            Code = (int)System.Net.HttpStatusCode.OK,
+            Payload = null
+        });
+    }
+
+
+
      // --- Autenticación ---
       //   [HttpPost]                          // Crear
       //   [HttpPost("login")]                 // Login
@@ -396,10 +632,10 @@ public class UserControllers : ControllerBase
 
         // --- Perfil ---
        //  [HttpGet("me")]                     // Mi perfil
-       //  [HttpPut("me")]                     // Actualizar perfil
+       //  [HttpPut("update-me")]                     // Actualizar perfil
        //  [HttpPut("me/avatar")]              // Cambiar avatar
        //  [HttpPut("change-password")]        // Cambiar contraseña
-       //  [HttpDelete("me")]                  // Eliminar mi cuenta
+       //  [HttpDelete("delete-me")]                  // Eliminar mi cuenta
 
         // --- Admin ---
        //  [HttpGet]                           // Listar

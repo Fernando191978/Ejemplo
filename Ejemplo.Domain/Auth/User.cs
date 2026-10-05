@@ -54,8 +54,8 @@ namespace Ejemplo.Domain.Auth
 
         //Auditoria / soft delete
 
-        private DateTime? createdAt = DateTime.UtcNow;
-        public DateTime? CreatedAt {get => createdAt; set => createdAt = value;}
+        private DateTime createdAt = DateTime.UtcNow;
+        public DateTime CreatedAt {get => createdAt; set => createdAt = value;}
 
         private bool isDeleted = false;
         public bool IsDeleted {get => isDeleted; set => isDeleted = value;}

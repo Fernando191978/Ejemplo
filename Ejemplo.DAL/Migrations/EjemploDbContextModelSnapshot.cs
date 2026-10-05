@@ -33,12 +33,18 @@ namespace Ejemplo.DAL.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<long?>("ImageId")
                         .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -50,6 +56,18 @@ namespace Ejemplo.DAL.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("RefreshTokenExpiryAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("ResetPasswordExpiryAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ResetPasswordToken")
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
