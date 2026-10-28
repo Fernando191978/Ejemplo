@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,16 @@ var jwtAudience = configuration["Jwt:Audience"]
 var jwtExpirationMinutes = configuration.GetValue<int>("Jwt:ExpirationMinutes");
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // El puerto de React
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddDbContext<EjemploDbContext>(options =>
 {
@@ -72,6 +84,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -114,9 +128,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+// Le decimos a .NET que permita el acceso público a la carpeta Storage/Images
+app.UseStaticFiles(new StaticFileOptions
+{
+    // Busca la carpeta "Storage/Images" en la raíz de tu proyecto
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Storage", "Images")),
+    
+    // Esta es la URL con la que React va a pedir las fotos.
+    // Como React pide "image/images/...", le decimos que mapee esa ruta.
+    RequestPath = "/image/images" 
+});
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowReactApp"); 
 
 app.UseAuthentication();
 app.UseAuthorization();

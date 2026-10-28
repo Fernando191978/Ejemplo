@@ -558,10 +558,13 @@ public class UserControllers : ControllerBase
     // GET /api/user  → Listar usuarios (solo admin)  (14)
     
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
         IEnumerable<User> users = await this.datebase.UserRepository.GetAllAsync(page, size);
+
+        
 
         return Ok(new ResponseDTO<IEnumerable<UserResponse>>
         {
@@ -597,7 +600,8 @@ public class UserControllers : ControllerBase
     // DELETE /api/user/{id}  → Eliminar usuario (solo admin) (16)
     // ============================================================
     [HttpDelete("{id:long}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<IActionResult> Delete(long id)
     {
         User? user = await this.datebase.UserRepository.GetByIdAsync(id);
