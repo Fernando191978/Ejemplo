@@ -560,18 +560,24 @@ public class UserControllers : ControllerBase
     [HttpGet]
     //[Authorize(Roles = "Admin")]
     [Authorize]
-    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 5)
     {
         IEnumerable<User> users = await this.datebase.UserRepository.GetAllAsync(page, size);
+        int totalCount = await this.datebase.UserRepository.CountAsync();
 
+        int totalPages = (int)Math.Ceiling((double)totalCount / size);
         
 
-        return Ok(new ResponseDTO<IEnumerable<UserResponse>>
+        return Ok(new ResponseDTO<object>
         {
             Success = true,
             Message = "OK",
             Code = (int)System.Net.HttpStatusCode.OK,
-            Payload = users.Select(mapToResponse)
+            Payload = new 
+        {
+            users = users.Select(mapToResponse),
+            totalPages = totalPages
+        }
         });
     }
 
